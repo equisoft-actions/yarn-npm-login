@@ -1,0 +1,19 @@
+name: yarn-npm-login
+description: Login to NPM Registery with yarn
+
+inputs:
+  token:
+    description: Auth Token
+    required: true
+  registry:
+    description: NPM Registry
+    required: true
+    default: registry.npmjs.org
+
+runs:
+  using: "composite"
+  steps:
+    - name: Yarn NPM Login
+      run: |
+        echo -e "npmRegistries: \n  //${{ inputs.registry }}:\n    npmAlwaysAuth: true\n    npmAuthToken: ${{ inputs.token }}" > ~/.yarnrc.yml
+      shell: bash
